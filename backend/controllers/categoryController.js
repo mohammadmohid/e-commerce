@@ -19,7 +19,7 @@ const createCategory = async (req, res) => {
   try {
     // If there's a file uploaded
     let mainImage = "";
-    if (req.file && req.file.image && req.file.image.length > 0) {
+    if (req.file && req.file.path) {
       mainImage = req.file.path;
     }
 
