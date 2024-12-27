@@ -23,7 +23,7 @@ const NavIcons = () => {
     <div className="flex min-w-max whitespace-nowrap gap-2 md:gap-4 items-center">
       <div className="relative">
         <div className="flex gap-2 items-center">
-          <div className="relative outline outline-[1px] outline-brand bg-secondary rounded-md w-[25px] h-[25px] ">
+          <div className="relative outline outline-[1px] outline-brand rounded-md w-[25px] h-[25px] ">
             <svg
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-brand cursor-pointer"
               width="20"

@@ -2,10 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchCategories } from "@/utils/api";
 
 const HeaderSub = () => {
   const [productsSub, setProductsSub] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const data = await fetchCategories();
+        setCategories(data);
+      } catch (error) {
+        console.error("Error loading categories:", error);
+      }
+    };
+    loadCategories();
+  }, []);
 
   const productsSubChange = () => {
     setProductsSub(!productsSub);
@@ -108,7 +122,7 @@ const HeaderSub = () => {
         </ul>
         <div className="min-w-full border-t-[1px] md:min-w-max md:border-t-0 md:min-h-full md:border-l-[1px] border-border-default"></div>
         <ul className="flex md:flex-col md:h-auto max-lg:max-h-[50dvh] lg:max-h-[30dvh] gap-4 flex-wrap font-medium">
-          <Link
+          {/* <Link
             className="hover:underline decoration-brand decoration-2"
             href="/products?cat=cases"
           >
@@ -191,7 +205,16 @@ const HeaderSub = () => {
             href="/products?cat=ssd"
           >
             <li>Solid-State Drives (SSD)</li>
-          </Link>
+          </Link> */}
+          {categories.map((category, index) => (
+            <Link
+              key={index}
+              className="hover:underline  decoration-brand decoration-2"
+              href="/"
+            >
+              <li>{category.name}</li>
+            </Link>
+          ))}
         </ul>
       </div>
     </div>
