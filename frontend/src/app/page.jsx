@@ -1,9 +1,44 @@
+"use client";
+
 import Link from "next/link";
 import InfoCarousel from "@/components/Carousel";
 import { CircularCard } from "@/components/CircularCard";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
+import { fetchCategories, fetchProducts } from "@/utils/api";
+import { useState, useEffect } from "react";
 
 const HomePage = () => {
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadCategories();
+    loadProducts();
+  }, []);
+
+  const loadCategories = async () => {
+    try {
+      const data = await fetchCategories();
+      setCategories(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading categories:", error);
+      setLoading(false);
+    }
+  };
+
+  const loadProducts = async () => {
+    try {
+      const data = await fetchProducts();
+      setProducts(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading products:", error);
+      setLoading(false);
+    }
+  };
+
   const slides = [
     {
       title: "Build your PC in realtime",
@@ -94,17 +129,17 @@ const HomePage = () => {
           <div className="absolute bottom-0 translate-y-2 h-[1px] w-full bg-border-default rounded-md"></div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4">
-          {sampleCategories.map((category, index) => (
+          {categories.map((category) => (
             <CircularCard
-              key={index}
+              key={category._id}
               name={category.name}
-              imageSrc={category.imageSrc}
-              href={category.href}
+              imageSrc={category.image}
+              href="/products"
             />
           ))}
         </div>
       </section>
-      <FeaturedProducts products={featuredProducts} />
+      <FeaturedProducts products={products} />
     </div>
   );
 };

@@ -9,52 +9,36 @@ export const ProductCard = ({
   imageSrc,
   adaptiveSize = false,
   className = "",
+  onClick,
 }) => {
   return (
     <div
-      className={`flex flex-col flex-grow gap-4 p-4 border border-border-default rounded-lg ${
+      className={`flex flex-col gap-4 p-4 border border-border-default rounded-lg ${
         adaptiveSize ? "w-full h-full" : "md:w-[250px]"
       } ${className}`}
     >
       <div
-        className={`relative bg-gray-100 ${
+        className={`relative h-72 md:w-52 md:h-52 bg-gray-100 ${
           adaptiveSize ? "w-full aspect-square" : ""
         }`}
       >
         <Image
           src={imageSrc || "/placeholder-img.png"}
           alt={name}
-          width={208}
-          height={247}
-          className="w-full h-full object-cover"
+          fill
+          sizes="25vw"
+          onClick={onClick}
         />
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col" onClick={onClick}>
         <div className="flex justify-between items-center">
-          <h3 className="text-brand font-semibold text-[1.125rem]">{name}</h3>
-          {/* Plus Button */}
-
-          {/* <button className="hidden md:block group items-center font-semibold gap-2 justify-center rounded-full text-brand-white border-2 border-brand hover:bg-brand p-1 hover:opacity-90 transition-opacity">
-            <svg
-              className="text-brand group-hover:text-white"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M8 0C8.27674 0 8.54216 0.109941 8.73785 0.305628C8.93354 0.501315 9.04348 0.766734 9.04348 1.04348V6.95652H14.9565C15.2333 6.95652 15.4987 7.06646 15.6943 7.26215C15.8901 7.45784 16 7.72326 16 8C16 8.27674 15.8901 8.54216 15.6943 8.73785C15.4987 8.93354 15.2333 9.04348 14.9565 9.04348H9.04348V14.9565C9.04348 15.2333 8.93354 15.4987 8.73785 15.6943C8.54216 15.8901 8.27674 16 8 16C7.72326 16 7.45784 15.8901 7.26215 15.6943C7.06646 15.4987 6.95652 15.2333 6.95652 14.9565V9.04348H1.04348C0.766734 9.04348 0.501315 8.93354 0.305628 8.73785C0.109941 8.54216 0 8.27674 0 8C0 7.72326 0.109941 7.45784 0.305628 7.26215C0.501315 7.06646 0.766734 6.95652 1.04348 6.95652H6.95652V1.04348C6.95652 0.766734 7.06646 0.501315 7.26215 0.305628C7.45784 0.109941 7.72326 0 8 0Z"
-                fill="currentColor"
-              />
-            </svg>
-          </button> */}
+          <h3 className="text-brand line-clamp-1 font-semibold text-[1.125rem]">
+            {name}
+          </h3>
         </div>
 
-        <div className="flex items-center gap-2 mb-2">
+        <div className="flex items-center gap-2 mb-2" onClick={onClick}>
           <span className="text-text-default font-semibold">
             Rs. {price.toLocaleString()}
           </span>
@@ -65,7 +49,10 @@ export const ProductCard = ({
           )}
         </div>
 
-        <p className="text-text-secondary text-ellipsis text-sm mb-2">
+        <p
+          className="text-text-secondary line-clamp-1 text-ellipsis text-sm mb-2"
+          onClick={onClick}
+        >
           {description}
         </p>
         <div className="flex md:flex-wrap gap-2">

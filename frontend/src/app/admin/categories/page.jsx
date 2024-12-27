@@ -64,7 +64,7 @@ export default function CategoryPage() {
             <h2 className="text-xl font-semibold">{category.name}</h2>
             <p className="text-gray-600">${category.price}</p>
             <div className="mt-4 flex space-x-2">
-              <Link href={`admin/categories/${category._id}`}>
+              <Link href={`categories/${category._id}`}>
                 <button className="px-3 py-2 rounded-lg flex gap-2 items-center transition-colors bg-brand text-brand-white hover:bg-secondary">
                   Edit
                 </button>

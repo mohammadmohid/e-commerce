@@ -62,9 +62,9 @@ export default function ProductsPage() {
               )}
             </div>
             <h2 className="text-xl font-semibold">{product.name}</h2>
-            <p className="text-gray-600">${product.price}</p>
+            <p className="text-gray-600">Rs. {product.price}</p>
             <div className="mt-4 flex space-x-2">
-              <Link href={`admin/products/${product._id}`}>
+              <Link href={`products/${product._id}`}>
                 <button className="px-3 py-2 rounded-lg flex gap-2 items-center transition-colors bg-brand text-brand-white hover:bg-secondary">
                   Edit
                 </button>

@@ -1,6 +1,34 @@
+"use client";
+
+import { signIn } from "@/lib/auth";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    const result = await signIn(email, password);
+
+    if (result.success) {
+      router.push("/");
+      router.refresh();
+    } else {
+      setError(result.error || "Login failed");
+    }
+
+    setLoading(false);
+  };
+
   return (
     <div className="flex w-full items-center bg-hero-pattern justify-center p-4 md:p-8">
       <div className="w-full max-w-md p-8 rounded-3xl border-[1px] border-border-default bg-white shadow-lg">
@@ -9,7 +37,7 @@ export const SignIn = () => {
             <h1 className="text-secondary text-4xl font-semibold">Sign in</h1>
           </div>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="space-y-1">
               <label htmlFor="email" className="font-light">
                 Email
@@ -18,6 +46,9 @@ export const SignIn = () => {
                 type="email"
                 id="email"
                 placeholder="test1@gmail.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
                 className="w-full px-4 py-2 bg-brand-white outline-none focus:ring-2 ring-brand placeholder:text-text-secondary rounded-lg"
               />
             </div>
@@ -30,15 +61,20 @@ export const SignIn = () => {
                 type="password"
                 id="password"
                 placeholder="************"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={6}
                 className="w-full px-4 py-2 bg-brand-white outline-none focus:ring-2 ring-brand placeholder:text-text-secondary rounded-lg"
               />
             </div>
 
             <button
               type="submit"
+              disabled={loading}
               className="w-full px-4 py-3 font-semibold transition-colors bg-brand text-brand-white hover:bg-secondary rounded-lg flex items-center justify-center space-x-2"
             >
-              <span>CONTINUE BROWSING</span>
+              {loading ? "Signing in..." : "CONTINUE BROWSING"}
               <svg
                 width="16"
                 height="16"

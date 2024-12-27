@@ -5,16 +5,12 @@ export const CircularCard = ({ name, imageSrc, href }) => {
   return (
     <div className="flex flex-col group items-center gap-3">
       <Link href={href || "/"}>
-        <div className="relative overflow-hidden mx-auto rounded-[100%] aspect-square border-2 border-brand transition-shadow group-hover:shadow-lg">
+        <div className="relative w-32 h-32 overflow-hidden mx-auto rounded-[100%] aspect-square border-2 border-brand transition-shadow group-hover:shadow-lg">
           <Image
             src={imageSrc || "/placeholder-img.png"}
             alt={name}
-            width={150}
-            height={150}
-            className="max-w-fit max-h-full object-cover"
-            quality={100}
-            placeholder="blur"
-            blurDataURL="/placeholder-img.png"
+            fill
+            sizes="25vw"
           />
         </div>
       </Link>
