@@ -10,7 +10,7 @@ const config = {
       colors: {
         brand: "#E1A140",
         "brand-white": "#FFF6F4",
-        secondary: "",
+        secondary: "#2F2E41",
         "border-default": "#D9D9D9",
         "text-default": "#000",
         "text-secondary": "#757575",

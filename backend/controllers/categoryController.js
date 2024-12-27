@@ -18,14 +18,14 @@ const getCategories = async (req, res) => {
 const createCategory = async (req, res) => {
   try {
     // If there's a file uploaded
-    let imageUrl = "";
-    if (req.file) {
-      imageUrl = req.file.path;
+    let mainImage = "";
+    if (req.file && req.file.image && req.file.image.length > 0) {
+      mainImage = req.file.path;
     }
 
     const category = new Category({
       name: req.body.name,
-      imageUrl: imageUrl,
+      image: mainImage,
       color: req.body.color,
     });
 
@@ -33,7 +33,7 @@ const createCategory = async (req, res) => {
     if (!savedCategory) {
       return res.status(404).send("The Category cannot be created");
     }
-    res.send(savedCategory);
+    res.status(201).json(savedCategory);
   } catch (error) {
     console.error("Error creating category:", error);
     res.status(500).json({ message: "Internal Server Error" });

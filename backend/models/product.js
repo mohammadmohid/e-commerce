@@ -12,11 +12,6 @@ const productSchema = mongoose.Schema({
     required: true,
   },
 
-  richDescription: {
-    type: String,
-    default: "",
-  },
-
   image: {
     type: String,
     default: "",
